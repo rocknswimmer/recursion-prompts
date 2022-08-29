@@ -6,7 +6,7 @@
 // denoted by n!, is the product of all positive integers less than or equal to n.
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
-console.log('was read');
+//console.log('was read');
 
 var factorial = function(n) {
   if (n < 0){
@@ -210,16 +210,75 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  if(y === 0){
+    return NaN;
+  }
+  if(x === 0){
+    return x;
+  }
+  if(x < 0){
+    if(y < 0){
+      return -(modulo(-x, -y));
+
+    }
+    return -(modulo(-x, y));
+  }
+  if(x < y){
+    return x;
+  } else{
+    return modulo((x - y), y);
+  }
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+  if(x < 0){
+    if(y > 0){
+      return x + multiply(x, y - 1);
+    }
+    if(y < 0){
+      return -x + multiply(x, y + 1);
+    }
+  }
+  if(y > 0){
+    return x + multiply(x, y - 1);
+  }
+  if(y < 0){
+    return -x + multiply(x, y + 1);
+  }
+  return 0;
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
 var divide = function(x, y) {
+  if(y === 0){
+    return NaN;
+  }
+ if(x < 0){
+  if(y < 0){
+    if(x > y){
+      return 0;
+    }
+    return 1 + divide(-(x - y), -y)
+  }
+  if(x > -y){
+    return 0;
+  }
+  return 1 + divide(-(x + y), y);
+ }
+ if(y < 0){
+  if(x < -y){
+    return 0;
+  }
+  return 1 + divide((x + y), -y)
+}
+if(x < y){
+  return 0;
+}
+return 1 + divide((x - y), y);
+
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
@@ -235,6 +294,18 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+  console.log(str1);//proves the recursion check is poorly written for optimized code
+  if(str1.length === str2.length){
+    if(str1[0] === str2[0]){
+      if (str1.length === 1 || str1.length === 0) {
+        return true;
+      }
+      return compareStr(str1.slice(1), str2.slice(1));
+    }
+    return false;
+
+  }
+  return false;
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
