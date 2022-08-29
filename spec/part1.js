@@ -909,7 +909,7 @@
       });
 
       it('should use recursion by calling self', function() {
-        compareStr('house', 'houses');
+        compareStr('house', 'house');
         expect(compareStr.callCount).to.be.above(1);
       });
 
